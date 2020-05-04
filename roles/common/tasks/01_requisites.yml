@@ -1,0 +1,10 @@
+- name: Check whether oc is present
+  command: 'which oc' 
+  register: oc_installed
+  ignore_errors: yes
+
+- name: Install oc
+  command: 'echo prout'
+  args:  
+    creates: '/usr/local/bin/oc'
+  when: oc_installed.rc != 0

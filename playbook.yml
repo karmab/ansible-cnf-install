@@ -1,0 +1,13 @@
+---
+- name: Deploy Cnf Operators
+  hosts: u08
+  become: yes
+  vars:
+    kubeconfig: /root/virtual/clusters/cnf11/auth/kubeconfig
+  environment:
+    KUBECONFIG: "{{ kubeconfig }}"
+  roles:
+  - common
+  - performance
+#  - ptp
+#  - sriov
