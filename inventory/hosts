@@ -1,0 +1,14 @@
+[all:vars]
+
+# Namespace where to deploy performance add on operator
+performance_namespace=openshift-performance-addon
+# Channel for 
+performance_channel=4.4
+# Machine config pool
+mcp=worker-cnf
+
+[provisioner]
+u08 ansible_ip=10.19.135.108
+
+[nodes]
+cnf13-worker-1.cnf13.karmalabs.com role=worker-cnf

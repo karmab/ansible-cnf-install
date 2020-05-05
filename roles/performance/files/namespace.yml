@@ -3,5 +3,4 @@ kind: Namespace
 metadata:
   labels:
     openshift.io/cluster-monitoring: "true"
-  name: "{{ namespace }}"
-spec: {}
+  name: openshift-performance-addon

@@ -1,5 +1,5 @@
 - name: Tag nodes according to inventory
-  command: '/usr/local/bin/oc label node {{ item }} node-role.kubernetes.io/{{ hostvars[item]["role"] }}=""'
+  command: 'oc label node {{ item }} node-role.kubernetes.io/{{ hostvars[item]["role"] }}=""'
   ignore_errors: yes
   with_items: "{{ groups['nodes'] }}"
 #- meta: end_play

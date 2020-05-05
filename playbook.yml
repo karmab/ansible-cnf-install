@@ -3,9 +3,10 @@
   hosts: u08
   become: yes
   vars:
-    kubeconfig: /root/virtual/clusters/cnf11/auth/kubeconfig
+    kubeconfig: /root/virtual/clusters/cnf13/auth/kubeconfig
   environment:
     KUBECONFIG: "{{ kubeconfig }}"
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin"
   roles:
   - common
   - performance

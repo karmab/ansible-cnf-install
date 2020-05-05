@@ -1,3 +1,2 @@
-namespace: openshift-performance-addon
 channel: 4.4
 mcp: worker-cnf
