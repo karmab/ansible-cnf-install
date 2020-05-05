@@ -1,0 +1,6 @@
+- name: Store rendered yamls as variables
+  set_fact:
+    sctp_mc: '{{ lookup("file", "files/sctp_module_mc.yaml") }}'
+
+- name: Deploy yamls
+  shell: "echo -n '{{ sctp_mc }}' | oc apply -f -"

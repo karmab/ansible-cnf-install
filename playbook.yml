@@ -10,5 +10,6 @@
   roles:
   - common
 #  - performance
-  - ptp
-#  - sriov
+#  - ptp
+#  - sctp
+  - sriov
