@@ -12,4 +12,5 @@
 #  - performance
 #  - ptp
 #  - sctp
-  - sriov
+#  - sriov
+  - dpdk
