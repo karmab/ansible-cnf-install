@@ -1,0 +1,16 @@
+apiVersion: ptp.openshift.io/v1
+kind: PtpConfig
+metadata:
+  name: {{ ptprole }}
+  namespace: openshift-ptp
+spec:
+  profile:
+  - name: "{{ ptprole }}"
+    interface: "{{ ptpinterface }}"
+    ptp4lOpts: "{{ '-s' if 'master' in ptprole else '' }}"
+    phc2sysOpts: "-a -r {{'-r' if 'master' else ''}}"
+  recommend:
+  - profile: "{{ ptprole }}"
+    priority: 4
+    match:
+    - nodeLabel: "ptp/{{ ptprole }}"

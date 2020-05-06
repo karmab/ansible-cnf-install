@@ -2,7 +2,7 @@
   set_fact:
     install: '{{ lookup("template", "templates/install.yml.j2") }}'
     cr: '{{ lookup("template", "templates/cr.yml.j2") }}'
-    mcp_pool: '{{ lookup("template", "templates/mcp.yml.j2") }}'
+    machineconfigpool: '{{ lookup("template", "templates/mcp.yml.j2") }}'
 
 - name: Install
   shell: "echo -n '{{ install }}' | oc apply -f -"
@@ -14,4 +14,4 @@
   shell: "echo -n '{{ item }}' | oc apply -f -"
   with_items:
   - "{{ cr }}"
-  - "{{ mcp_pool }}"
+  - "{{ machineconfigpool }}"
