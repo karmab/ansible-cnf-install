@@ -1,0 +1,6 @@
+- name: Store rendered yamls as variables
+  set_fact:
+    install: '{{ lookup("template", "templates/install.yml.j2") }}'
+
+- name: Install
+  shell: "echo -n '{{ install }}' | oc apply -f -"
