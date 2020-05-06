@@ -1,12 +1,6 @@
 - name: Store rendered yamls as variables
   set_fact:
-    namespace: '{{ lookup("template", "templates/namespace.yml.j2") }}'
-    operatorgroup: '{{ lookup("template", "templates/operatorgroup.yml.j2") }}'
-    subscription: '{{ lookup("template", "templates/subscription.yml.j2") }}'
+    install: '{{ lookup("install", "templates/install.yml.j2") }}'
 
-- name: Deploy yamls
-  shell: "echo -n '{{ item }}' | oc apply -f -"
-  with_items:
-  - "{{ namespace }}"
-  - "{{ operatorgroup }}"
-  - "{{ subscription }}"
+- name: Install
+  shell: "echo -n '{{ install }}' | oc apply -f -"
