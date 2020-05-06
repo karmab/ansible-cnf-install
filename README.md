@@ -6,7 +6,8 @@ This repository provides an ansible role which can be used to deploy the followi
 - performance add on operator
 - sriov operator
 - ptp operator
-- a dpdk build
+- sctp module
+- dpdk s2i uild
 
 ## Requirements
 
@@ -23,6 +24,8 @@ ansible-playbook -i $YOUR_HOST, playbook.yml
 ```
 
 ## Parameters
+
+### Performance
 
 |Parameter                |Default Value                 |
 |-------------------------|------------------------------|

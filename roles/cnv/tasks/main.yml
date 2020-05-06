@@ -4,3 +4,6 @@
 
 - name: Install
   shell: "echo -n '{{ install }}' | oc apply -f -"
+
+- name: Wait for operator to be up
+  shell: "oc wait --for=condition=Ready pod -l name=hyperconverged-cluster-operator -n openshift-cnv"

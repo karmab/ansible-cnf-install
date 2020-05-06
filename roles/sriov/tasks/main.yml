@@ -4,3 +4,11 @@
 
 - name: Install
   shell: "echo -n '{{ install }}' | oc apply -f -"
+
+- name: Wait for operator to be up
+  shell: "oc wait --for=condition=Ready pod -l name=sriov-network-operator -n openshift-sriov-network-operator"
+
+#- name: Customize
+#  shell: "echo -n '{{ item }}' | oc apply -f -"
+#  with_items:
+#  - "{{ cr }}"
