@@ -1,0 +1,10 @@
+[all:vars]
+
+# Channel for performance operators
+performance_channel=4.4
+# Machine config pool
+mcp=["worker-cnf"]
+
+[nodes]
+node01 role=worker-cnf
+node02 role=worker-cnf

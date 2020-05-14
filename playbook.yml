@@ -1,16 +1,16 @@
 ---
 - name: Deploy Cnf Operators
-  hosts: u08
+  hosts: cnf12-installer
   become: yes
   vars:
-    kubeconfig: /root/virtual/clusters/cnf13/auth/kubeconfig
+    kubeconfig: /root/ocp/auth/kubeconfig
   environment:
     KUBECONFIG: "{{ kubeconfig }}"
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin"
   roles:
 #  - common
-#  - performance
-  - cnv
+  - performance
+#  - cnv
 #  - ptp
 #  - sctp
 #  - sriov

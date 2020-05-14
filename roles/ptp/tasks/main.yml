@@ -8,7 +8,7 @@
 - name: Wait for operator to be up
   shell: "oc wait --for=condition=Ready pod -l name=ptp-operator -n openshift-ptp"
 
-#- name: Customize
-#  shell: "echo -n '{{ item }}' | oc apply -f -"
-#  with_items:
-#  - "{{ cr }}"
+- name: Customize
+  shell: "echo -n '{{ item }}' | oc apply -f -"
+  with_items:
+  - "{{ ptp_crs }}"
