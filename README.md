@@ -64,7 +64,7 @@ all:
 It will:
 
 - create mcps worker-cnf and master-cnf
-- labels all nodes in the nodes group with their corresponding list of labels (node-role.kubernetes.io/worker-cnf in this case for both of them)
+- labels all nodes in the *cluster_group* group (nodes by default) with their corresponding list of labels (node-role.kubernetes.io/worker-cnf in this case for both of them)
 - when deploying performance operator, also create the `worker-cnf` performance profile
 
 You could use this inventory along with the following playbook
@@ -99,6 +99,7 @@ ansible-playbook -i inventory playbook.yml
 
 |Parameter                |Default Value |
 |-------------------------|--------------|
+|cluster_group            |nodes         |
 |mcps                     |[]            |
 |performancechannel       |4.4           |
 |performance_crs          |[]            |

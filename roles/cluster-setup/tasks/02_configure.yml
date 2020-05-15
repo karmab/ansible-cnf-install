@@ -1,7 +1,7 @@
 - name: Tag nodes as per inventory
   command: "{{ item }}"
   ignore_errors: yes
-  with_items: "{{ hostvars | oclabels }}"
+  with_items: "{{ hostvars | oclabels(cluster_group) }}"
 - name: Create machineconfigpools as per inventory
   shell: |
     echo -n 'apiVersion: machineconfiguration.openshift.io/v1
