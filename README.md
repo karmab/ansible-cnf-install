@@ -2,12 +2,15 @@
 
 ## About
 
-This repository provides an ansible role which can be used to deploy the following elements:
+This repository provides ansible roles which can be used to deploy the following elements:
+- cluster-setup (labels nodes and create machineconfigpools)
 - performance add on operator
 - sriov operator
 - ptp operator
 - sctp module
 - dpdk s2i uild
+
+For the operators, a set of crs can also be specified or let empty so that the user handles crs by himself
 
 ## Requirements
 
@@ -17,18 +20,87 @@ This repository provides an ansible role which can be used to deploy the followi
 
 ## Launch
 
-Prepare a valid parameter file with the information needed. At least, you need to specify the following elements:
+Prepare a valid hosts or hosts.yml file in inventory directory with the information needed.
+
+For instance, consider the following (yaml) inventory:
 
 ```
-ansible-playbook -i $YOUR_HOST, playbook.yml
+all:
+  vars:
+   performance_channel: 4.4
+   mcps:
+   - worker-cnf
+   - master-cnf
+   performance_crs:
+   -    |
+       apiVersion: performance.openshift.io/v1alpha1
+       kind: PerformanceProfile
+       metadata:
+         name: worker-cnf
+       spec:
+         cpu:
+           isolated: "1-3"
+           reserved: "0"
+         hugepages:
+           defaultHugepagesSize: "1G"
+           pages:
+           - size: "1G"
+             count: 1
+         realTimeKernel:
+           enabled: true
+         nodeSelector:
+           node-role.kubernetes.io/worker-cnf: ""
+  children:
+      nodes:
+        hosts:
+          node01:
+            labels:
+            - node-role.kubernetes.io/worker-cnf
+          node02:
+            labels:
+            - node-role.kubernetes.io/worker-cnf
 ```
 
-## Parameters
+It will:
 
-### Performance
+- create mcps worker-cnf and master-cnf
+- labels all nodes in the nodes group with their corresponding list of labels (node-role.kubernetes.io/worker-cnf in this case for both of them)
+- when deploying performance operator, also create the `worker-cnf` performance profile
 
-|Parameter                |Default Value                 |
-|-------------------------|------------------------------|
-|namespace                |openshift-performance-addon   |
-|channel                  |4.4                           |
-|mcp                      |worker-cnf                    |
+You could use this inventory along with the following playbook
+
+```
+---
+- name: Deploy Cnf Operators
+  hosts: localhost
+  become: yes
+  vars:
+    kubeconfig: /root/ocp/auth/kubeconfig
+  environment:
+    KUBECONFIG: "{{ kubeconfig }}"
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin"
+  roles:
+  - cluster-setup
+  - performance
+  - ptp
+  - sriov
+  - dpdk
+#  - sctp
+#  - cnv
+```
+
+With inventory and playbook in place, you can launch the deployment the usual way:
+
+```
+ansible-playbook -i inventory playbook.yml
+```
+
+## Ansible variables
+
+|Parameter                |Default Value |
+|-------------------------|--------------|
+|mcps                     |[]            |
+|performancechannel       |4.4           |
+|performance_crs          |[]            |
+|sriov_crs                |[]            |
+|ptp_crs                  |[]            |
