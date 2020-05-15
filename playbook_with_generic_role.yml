@@ -1,0 +1,42 @@
+---
+- name: Deploy Cnf Operators
+  hosts: cnf12-installer
+  become: yes
+  vars:
+    kubeconfig: /root/ocp/auth/kubeconfig
+    cnv_cr: |
+        apiVersion: hco.kubevirt.io/v1alpha1
+        kind: HyperConverged
+        metadata:
+          name: kubevirt-hyperconverged
+          namespace: openshift-cnv
+        spec:
+          BareMetalPlatform: true
+  environment:
+    KUBECONFIG: "{{ kubeconfig }}"
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin"
+  roles:
+  - cluster-setup
+  - role: operator-install
+    vars:
+     namespace: openshift-performance-addon
+     operator: performance-addon-operator
+     crs: "{{ performance_crs }}"
+  - role: operator-install
+    vars:
+     namespace: openshift-cnv
+     operator: kubevirt-hyperconverged
+     channel: 2.3
+     crs: "[{{ cnv_cr }}]"
+  - role: operator-install
+    vars:
+     namespace: openshift-ptp
+     operator: ptp-operator
+     crs: "{{ ptp_crs }}"
+  - role: operator-install
+    vars:
+     namespace: openshift-sriov-network-operator
+     operator: sriov-network-operator
+     crs: "{{ sriov_crs }}"
+#  - sctp
+#  - dpdk

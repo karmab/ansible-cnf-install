@@ -1,0 +1,6 @@
+channel: 4.4
+crs: []
+operator:
+namespace:
+source: redhat-operators
+source_namespace: openshift-marketplace

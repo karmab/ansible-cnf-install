@@ -1,0 +1,13 @@
+- name: Store rendered yamls as variables
+  set_fact:
+    install: '{{ lookup("template", "templates/install.yml.j2") }}'
+
+- name: Install
+  shell: "echo -n '{{ install }}' | oc apply -f -"
+
+- name: Wait for operator to be up
+  shell: "oc wait --for=condition=Ready pod -l name={{ operator }} -n {{ namespace }}"
+
+- name: Customize
+  shell: "echo -n '{{ item }}' | oc apply -f -"
+  with_items: "{{ crs }}"
