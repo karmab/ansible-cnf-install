@@ -1,7 +1,7 @@
 - name: Tag nodes as per inventory
-  command: 'oc label node {{ item }} node-role.kubernetes.io/{{ hostvars[item]["role"] }}=""'
+  command: "{{ item }}"
   ignore_errors: yes
-  with_items: "{{ groups['nodes'] }}"
+  with_items: "{{ hostvars | oclabels }}"
 - name: Create machineconfigpools as per inventory
   shell: |
     echo -n 'apiVersion: machineconfiguration.openshift.io/v1

@@ -8,8 +8,8 @@
     KUBECONFIG: "{{ kubeconfig }}"
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin"
   roles:
-#  - common
-  - performance
+  - common
+#  - performance
 #  - cnv
 #  - ptp
 #  - sctp
