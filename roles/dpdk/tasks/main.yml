@@ -1,5 +1,6 @@
 - name: Store rendered yamls as variables
   set_fact:
+    sriov-networknodepolicy-dpdk: '{{ lookup("template", "templates/sriov-networknodepolicy-dpdk.yml.j2") }}'
     scc: '{{ lookup("template", "templates/scc.yml.j2") }}'
     buildconfig: '{{ lookup("template", "templates/build-config.yml.j2") }}'
     deploymentconfig: '{{ lookup("template", "templates/deployment-config.yml.j2") }}'
@@ -8,6 +9,7 @@
 - name: Deploy yamls
   shell: "echo -n '{{ item }}' | oc apply -f -"
   with_items:
+  - "{{ sriov-networknodepolicy-dpdk }}"
   - "{{ scc }}"
   - "{{ dpdknetwork }}"
   - "{{ buildconfig }}"

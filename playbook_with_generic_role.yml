@@ -1,6 +1,6 @@
 ---
 - name: Deploy Cnf Operators
-  hosts: cnf12-installer
+  hosts: localhost
   become: yes
   vars:
     kubeconfig: /root/ocp/auth/kubeconfig
