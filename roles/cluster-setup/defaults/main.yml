@@ -1,2 +1,3 @@
 cluster_group: nodes
 paused: false
+mcps: []
