@@ -7,7 +7,7 @@
 
 - name: Wait to avoid race conditions
   pause:
-    seconds: 5
+    seconds: 10
 
 - name: Wait for operator to be up
   shell: "oc wait --for=condition=Ready pod -l name=performance-operator -n openshift-performance-addon"
