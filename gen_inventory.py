@@ -49,9 +49,11 @@ def inventory(args):
       nodes:
         hosts:
 {%- for node in nodes %}
+{%- set num = loop.index0|string %}
           {{ node }}:
             labels:
               - node-role.kubernetes.io/worker-cnf
+              - ptp/{{ 'grandmaster' if num == 0 else 'slave' }}
 {%- endfor -%}"""
 
     nodes = []
@@ -61,8 +63,9 @@ def inventory(args):
         labels = node['metadata']['labels']
         if 'node-role.kubernetes.io/worker' in labels:
             nodes.append(name)
-    print(Environment().from_string(INVENTORY).render(channel=channel, nodes=nodes, physical=physical,
-                                                      performance_catalogsource=performance_catalogsource))
+    if nodes:
+        print(Environment().from_string(INVENTORY).render(channel=channel, nodes=nodes, physical=physical,
+                                                          performance_catalogsource=performance_catalogsource))
 
 
 parser = argparse.ArgumentParser(description='Generate yaml inventory from your worker nodes to use with the playbook')
