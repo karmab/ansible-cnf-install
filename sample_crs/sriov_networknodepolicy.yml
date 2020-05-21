@@ -12,3 +12,4 @@ spec:
   nodeSelector:
     node-role.kubernetes.io/worker-cnf: ""
   numVfs: 5
+  resourceName: sriovnic
