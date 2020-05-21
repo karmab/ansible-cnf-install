@@ -16,11 +16,13 @@ def inventory(args):
         os._exit(1)
     channel = args.channel
     physical = args.physical
+    performance_catalogsource = args.performance_catalogsource
     INVENTORY = """all:
   vars:
    performance_channel: {{ channel }}
    sriov_channel: {{ channel }}
    ptp_channel: {{ channel }}
+   performance_catalogsource: {{ performance_catalogsource }}
    mcps:
    - worker-cnf
    performance_crs:
@@ -59,12 +61,15 @@ def inventory(args):
         labels = node['metadata']['labels']
         if 'node-role.kubernetes.io/worker' in labels:
             nodes.append(name)
-    print(Environment().from_string(INVENTORY).render(channel=channel, nodes=nodes, physical=physical))
+    print(Environment().from_string(INVENTORY).render(channel=channel, nodes=nodes, physical=physical,
+                                                      performance_catalogsource=performance_catalogsource))
 
 
 parser = argparse.ArgumentParser(description='Generate yaml inventory from your worker nodes to use with the playbook')
 parser.add_argument('-p', '--physical', action='store_true', help='Treat workers as physical')
-parser.add_argument('-c', '--channel', default='4.4', help='Channel to use', metavar='CHANNEL')
+parser.add_argument('-c', '--channel', default='4.4', help='Channel to use')
+parser.add_argument('--performance_catalogsource', default='redhat-operators',
+                    help='Catalog source to use in performance operator subscription')
 parser.set_defaults(func=inventory)
 args = parser.parse_args()
 args.func(args)
