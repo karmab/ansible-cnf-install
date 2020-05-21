@@ -12,12 +12,15 @@ def inventory(args):
         print("oc not found in path. Leaving!")
         os._exit(1)
     if 'KUBECONFIG' not in os.environ:
-        print("KUBECONFIG environment variable unset. Leaving!")
+        print("KUBECONFIG environment variable not defined. Leaving!")
         os._exit(1)
+    channel = args.channel
     physical = args.physical
     INVENTORY = """all:
   vars:
-   performance_channel: 4.4
+   performance_channel: {{ channel }}
+   sriov_channel: {{ channel }}
+   ptp_channel: {{ channel }}
    mcps:
    - worker-cnf
    performance_crs:
@@ -56,11 +59,12 @@ def inventory(args):
         labels = node['metadata']['labels']
         if 'node-role.kubernetes.io/worker' in labels:
             nodes.append(name)
-    print(Environment().from_string(INVENTORY).render(nodes=nodes, physical=physical))
+    print(Environment().from_string(INVENTORY).render(channel=channel, nodes=nodes, physical=physical))
 
 
 parser = argparse.ArgumentParser(description='Generate yaml inventory from your worker nodes to use with the playbook')
 parser.add_argument('-p', '--physical', action='store_true', help='Treat workers as physical')
+parser.add_argument('-c', '--channel', default='4.4', help='Channel to use', metavar='CHANNEL')
 parser.set_defaults(func=inventory)
 args = parser.parse_args()
 args.func(args)
