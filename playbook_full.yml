@@ -11,7 +11,7 @@
   - cluster-setup
   - performance
 #  - cnv
-#  - ptp
-#  - sctp
-#  - sriov
-#  - dpdk
+  - ptp
+  - sctp
+  - sriov
+  - dpdk
