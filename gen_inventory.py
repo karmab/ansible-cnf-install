@@ -49,7 +49,7 @@ def inventory(args):
       nodes:
         hosts:
 {%- for node in nodes %}
-{%- set num = loop.index0|string %}
+{%- set num = loop.index0 %}
           {{ node }}:
             labels:
               - node-role.kubernetes.io/worker-cnf
