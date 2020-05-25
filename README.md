@@ -17,6 +17,7 @@ For the operators, a set of crs can also be specified or let empty so that the u
 - a running openshift cluster
 - ansible
 - oc binary
+- KUBECONFIG env variable properly set!
 
 ## Launch
 

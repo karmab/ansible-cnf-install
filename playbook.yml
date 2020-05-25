@@ -2,10 +2,7 @@
 - name: Deploy Cnf Operators
   hosts: localhost
   become: yes
-  vars:
-    kubeconfig: /root/ocp/auth/kubeconfig
   environment:
-    KUBECONFIG: "{{ kubeconfig }}"
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin"
   roles:
   - cluster-setup
