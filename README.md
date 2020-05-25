@@ -75,10 +75,7 @@ You could use this inventory along with the following playbook
 - name: Deploy Cnf Operators
   hosts: localhost
   become: yes
-  vars:
-    kubeconfig: /root/ocp/auth/kubeconfig
   environment:
-    KUBECONFIG: "{{ kubeconfig }}"
     PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin"
   roles:
   - cluster-setup
@@ -98,11 +95,26 @@ ansible-playbook -i inventory playbook.yml
 
 ## Ansible variables
 
-|Parameter                |Default Value |
-|-------------------------|--------------|
-|cluster_group            |nodes         |
-|mcps                     |[]            |
-|performancechannel       |4.4           |
-|performance_crs          |[]            |
-|sriov_crs                |[]            |
-|ptp_crs                  |[]            |
+|Parameter                 |Default Value |
+|--------------------------|--------------|
+|cluster_group             |nodes         |
+|mcps                      |[]            |
+|performance_channel       |4.4           |
+|performance_catalogsource |              |
+|performance_crs           |              |
+|performance_crs           |[]            |
+|sriov_channel             |4.4           |
+|sriov_catalogsource       |              |
+|sriov_crs                 |[]            |
+|ptp_channel               |4.4           |
+|ptp_catalogsource         |              |
+|ptp_crs                   |[]            |
+
+## Generating ansible inventory
+
+You can use the helper script *gen_inventory.py* for this purpose
+
+```
+python3 gen_inventory.py
+```
+
