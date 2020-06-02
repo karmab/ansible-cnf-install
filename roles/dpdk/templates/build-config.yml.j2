@@ -26,15 +26,15 @@ spec:
   resources: {}
   runPolicy: Serial
   source:
-    contextDir: tools/s2i-dpdk/test/test-app
+    contextDir: {{ dpdk_dir }}
     git:
-      uri: https://github.com/openshift-kni/cnf-features-deploy.git
+      uri: "{{ dpdk_uri }}"
     type: Git
   strategy:
     sourceStrategy:
       from:
         kind: DockerImage
-        name: {{ image }}
+        name: "{{ dpdk_image }}"
     type: Source
   successfulBuildsHistoryLimit: 5
   triggers:

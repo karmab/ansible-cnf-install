@@ -1,1 +1,3 @@
-image: quay.io/schseba/dpdk-s2i-base:ds
+dpdk_image: quay.io/schseba/dpdk-s2i-base:ds
+dpdk_uri: https://github.com/openshift-kni/cnf-features-deploy.git
+dpdk_dir: tools/s2i-dpdk/test/test-app
