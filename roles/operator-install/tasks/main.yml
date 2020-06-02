@@ -10,7 +10,7 @@
     seconds: 10
 
 - name: Wait for operator to be up
-  shell: "oc wait --for=condition=Ready pod -l name={{ operator }} -n {{ namespace }}"
+  shell: "oc wait --for=condition=Ready pod -l name={{ operator }} -n {{ namespace }} --timeout=40s"
 
 - name: Customize
   shell: "echo -n '{{ item }}' | oc apply -f -"

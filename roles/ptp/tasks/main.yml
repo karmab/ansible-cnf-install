@@ -10,7 +10,7 @@
     seconds: 10
 
 - name: Wait for operator to be up
-  shell: "oc wait --for=condition=Ready pod -l name=ptp-operator -n openshift-ptp"
+  shell: "oc wait --for=condition=Ready pod -l name=ptp-operator -n openshift-ptp --timeout=40s"
 
 - name: Customize
   shell: "echo -n '{{ item }}' | oc apply -f -"
