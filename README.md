@@ -28,7 +28,7 @@ For instance, consider the following (yaml) inventory:
 ```
 all:
   vars:
-   performance_channel: 4.4
+   performance_channel: 4.7
    mcps:
    - worker-cnf
    - master-cnf
@@ -99,14 +99,14 @@ ansible-playbook -i inventory playbook.yml
 |--------------------------|--------------|
 |cluster_group             |nodes         |
 |mcps                      |[]            |
-|performance_channel       |4.4           |
+|performance_channel       |4.7           |
 |performance_catalogsource |              |
 |performance_crs           |              |
 |performance_crs           |[]            |
-|sriov_channel             |4.4           |
+|sriov_channel             |4.7           |
 |sriov_catalogsource       |              |
 |sriov_crs                 |[]            |
-|ptp_channel               |4.4           |
+|ptp_channel               |4.7           |
 |ptp_catalogsource         |              |
 |ptp_crs                   |[]            |
 
@@ -117,4 +117,3 @@ You can use the helper script *gen_inventory.py* for this purpose
 ```
 python3 gen_inventory.py
 ```
-
